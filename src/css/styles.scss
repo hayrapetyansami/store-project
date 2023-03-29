@@ -289,7 +289,7 @@ nav {
 
 					&.active {
 						span:nth-child(1) {
-							transform: rotate(-45deg) translate(-8px, 6px);
+							transform: rotate(-45deg) translate(-11px, 2px);
 						}
 
 						span:nth-child(2) {
@@ -297,7 +297,7 @@ nav {
 						}
 
 						span:nth-child(3) {
-							transform: rotate(45deg) translate(-10px, -9px);
+							transform: rotate(45deg) translate(-11px, -2px);
 						}
 					}
 				}
@@ -429,6 +429,7 @@ header {
 			.header__menu__item {
 				height: 24px;
 				margin-bottom: 16px;
+
 				.header__menu__item__link {
 					display: flex;
 					justify-content: space-between;
@@ -489,7 +490,7 @@ header {
 					}
 				}
 			}
-			
+
 			&::after {
 				content: "";
 				width: 0.5px;
