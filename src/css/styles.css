@@ -328,25 +328,51 @@ header .container .header__menu {
   position: relative;
 }
 header .container .header__menu .header__menu__item {
+  height: 24px;
+  margin-bottom: 16px;
+}
+header .container .header__menu .header__menu__item .header__menu__item__link {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 16px;
   width: 217px;
-  height: 24px;
 }
-header .container .header__menu .header__menu__item a {
+header .container .header__menu .header__menu__item .header__menu__item__link a {
   font-size: 16px;
   color: #000000;
   text-decoration: none;
   white-space: nowrap;
   width: 100%;
-  line-height: 24px;
 }
-header .container .header__menu .header__menu__item .header__menu__item__open {
+header .container .header__menu .header__menu__item .header__menu__item__link .header__menu__item__open {
   cursor: pointer;
 }
-header .container .header__menu .header__menu__item:last-child {
+header .container .header__menu .header__menu__item .header__menu__item__link:last-child {
   margin-bottom: 0px;
+}
+header .container .header__menu .header__menu__item .dropped__menu {
+  display: none;
+  padding-left: 16px;
+  transition: height 0.3s;
+  margin-top: 16px;
+}
+header .container .header__menu .header__menu__item .dropped__menu .dropped__menu__item {
+  margin-bottom: 16px;
+}
+header .container .header__menu .header__menu__item .dropped__menu .dropped__menu__item h5 {
+  margin: 0px 0px 8px 0px;
+  font-weight: normal;
+  font-size: 16px;
+}
+header .container .header__menu .header__menu__item .dropped__menu .dropped__menu__item ul li {
+  list-style-type: none;
+}
+header .container .header__menu .header__menu__item .dropped__menu .dropped__menu__item ul li a {
+  color: #000000;
+  text-decoration: none;
+  font-size: 15px;
+}
+header .container .header__menu .header__menu__item:hover .header__menu__item__link .header__menu__item__open {
+  transform: rotate(90deg);
 }
 header .container .header__menu::after {
   content: "";
@@ -359,15 +385,150 @@ header .container .header__menu::after {
   opacity: 0.3;
 }
 header .container .header__slider {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  gap: 24px;
   width: 892px;
-  height: 344px;
+  background: #000;
+  padding: 32px;
 }
-header .container .header__slider img {
+header .container .header__slider .header__slider__about {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+header .container .header__slider .header__slider__about .header__slider__left {
+  flex-basis: 294px;
+  white-space: nowrap;
+}
+header .container .header__slider .header__slider__about .header__slider__left .header__slider__left__top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+header .container .header__slider .header__slider__about .header__slider__left .header__slider__left__top img {
+  display: block;
+  margin: 0;
+}
+header .container .header__slider .header__slider__about .header__slider__left .header__slider__left__top span {
+  font-size: min(16px, max(8px + 2vw));
+  text-align: center;
+  color: #FAFAFA;
+}
+header .container .header__slider .header__slider__about .header__slider__left .header__slider__big__text h4 {
+  font-family: "inter-bold";
+  font-size: min(48px, max(24px + 2vw));
+  letter-spacing: 2px;
+  color: #FAFAFA;
+  margin: 24px 0px;
+}
+header .container .header__slider .header__slider__about .header__slider__left .header__slider__btn {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: min(16px, max(8px + 2vw));
+  text-decoration: none;
+  color: #FAFAFA;
+}
+header .container .header__slider .header__slider__about .header__slider__left .header__slider__btn span {
+  border-bottom: 1px solid #FAFAFA;
+  padding-bottom: 4px;
+}
+header .container .header__slider .header__slider__about .header__slider__right {
+  flex-basis: 400px;
+}
+header .container .header__slider .header__slider__about .header__slider__right img {
   display: block;
   width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+}
+@media screen and (max-width: 768px) {
+  header .container .header__slider .header__slider__about {
+    flex-wrap: wrap;
+  }
+  header .container .header__slider .header__slider__about .header__slider__left {
+    flex-basis: unset;
+    text-align: center;
+  }
+  header .container .header__slider .header__slider__about .header__slider__left .header__slider__left__top,
+  header .container .header__slider .header__slider__about .header__slider__left .header__slider__btn {
+    justify-content: center;
+  }
+  header .container .header__slider .header__slider__about .header__slider__right {
+    flex-basis: unset;
+  }
+}
+header .container .header__slider .header__slider__scroll__btns {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+}
+header .container .header__slider .header__slider__scroll__btns a {
+  display: block;
+}
+@media screen and (max-width: 580px) {
+  header .container .header__slider {
+    padding: 24px;
+  }
+}
+@media screen and (max-width: 380px) {
+  header .container .header__slider {
+    padding: 12px;
+  }
+}
+@media screen and (max-width: 1100px) {
+  header .container {
+    gap: 32px;
+  }
+  header .container .header__menu .header__menu__item .header__menu__item__link {
+    width: 180px;
+  }
+}
+@media screen and (max-width: 820px) {
+  header .container {
+    flex-wrap: wrap;
+  }
+  header .container .header__menu {
+    display: flex;
+    overflow-x: auto;
+  }
+  header .container .header__menu .header__menu__item .header__menu__item__link {
+    width: 180px;
+    padding-right: 32px;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+  }
+  header .container .header__menu .header__menu__item .header__menu__item__link .header__menu__item__open {
+    transform: rotate(90deg);
+  }
+  header .container .header__menu .header__menu__item .header__menu__item__link::after {
+    display: none;
+  }
+  header .container ::-webkit-scrollbar {
+    width: 10px;
+    height: 4px;
+  }
+  header .container ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  header .container ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  header .container ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}
+@media screen and (max-width: 380px) {
+  header .container .header__menu .header__menu__item .header__menu__item__link {
+    margin-bottom: 8px;
+  }
+  header .container .header__menu .header__menu__item .header__menu__item__link a {
+    font-size: 12px;
+  }
 }
 
 /* NORMALIZE CSS */
