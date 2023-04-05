@@ -1,0 +1,13 @@
+@import "./normalize.scss";
+@import "./fonts.scss";
+@import "./global-styles.scss";
+@import "./variables.scss";
+
+@import "./components/nav.scss";
+@import "./components/header.scss";
+@import "./components/main.scss"; 
+
+
+body {
+	font-family: 'Poppins', sans-serif;
+}
