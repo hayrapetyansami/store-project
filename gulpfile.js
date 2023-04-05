@@ -1,34 +1,41 @@
 import gulp from "gulp";
 import concat from "gulp-concat";
 import autoPrefixer from "gulp-autoprefixer";
-import cleanCSS from "gulp-clean-css";
+import GulpCleanCss from "gulp-clean-css";
 import dartSass from "sass";
 import gulpSass from "gulp-sass";
-import uglify from "gulp-uglify";
+import GulpUglify from "gulp-uglify";
 import { deleteSync } from "del";
 import browserSync from "browser-sync";
 import imagemin from "gulp-imagemin";
-import gcmq from "gulp-group-css-media-queries";
+import gulpGroupCssMediaQueries from "gulp-group-css-media-queries";
 import sourcemaps from "gulp-sourcemaps";
 import babel from "gulp-babel";
 
 const sass = gulpSass(dartSass);
+const prod = "./build";
+
+async function htmls () {
+	return gulp.src("./src/*.html")
+		.pipe(gulp.dest(`${prod}/`))
+		.pipe(browserSync.stream());
+}
 
 async function styles() {
-	return gulp.src("./src/scss/styles.scss")
+	return gulp.src("./src/sass/styles.scss")
 		.pipe(sass().on("error", sass.logError))
-		.pipe(gcmq())
+		.pipe(gulpGroupCssMediaQueries())
 		.pipe(sourcemaps.init())
 		.pipe(concat("styles.css"))
 		.pipe(autoPrefixer({
-			overrideBrowserslist: ["last 2 versions"],
+			overrideBrowserslist: ["> 0.1%"],
 			cascade: false
 		}))
-		.pipe(cleanCSS({
-			level: 1
+		.pipe(GulpCleanCss({
+			level: 2
 		}))
 		.pipe(sourcemaps.write("."))
-		.pipe(gulp.dest("./build/css/"))
+		.pipe(gulp.dest(`${prod}/css/`))
 		.pipe(browserSync.stream());
 }
 
@@ -39,53 +46,44 @@ async function scripts() {
 		.pipe(babel({
 			presets: ["@babel/env"]
 		}))
-		.pipe(uglify({
+		.pipe(GulpUglify({
 			toplevel: true
 		}))
 		.pipe(sourcemaps.write("."))
-		.pipe(gulp.dest("./build/js"))
+		.pipe(gulp.dest(`${prod}/js/`))
 		.pipe(browserSync.stream());
 }
 
-async function img() {
+async function pictures () {
 	return gulp.src("./src/img/**/*")
 		.pipe(imagemin())
-		.pipe(gulp.dest("./build/img"));
+		.pipe(gulp.dest(`${prod}/img/`));
 }
 
-async function clean() {
-	return deleteSync(["./build/*"]);
+async function clean () {
+	return deleteSync([prod]);
 }
 
-async function fonts() {
+async function fonts () {
 	return gulp.src("./src/fonts/*")
-		.pipe(gulp.dest("./build/fonts"));
+		.pipe(gulp.dest(`${prod}/fonts/`));
 }
 
-async function htmls() {
-	return gulp.src("./src/*.html")
-		.pipe(gulp.dest("./build/"))
-		.pipe(browserSync.stream());
-}
-
-async function watch() {
+async function watch () {
 	browserSync.init({
 		server: {
-			baseDir: "./build"
+			baseDir: prod
 		},
-		port: 8080,
+		port: 8888,
 		tunnel: false
-	});
+	})
 
-	gulp.watch("./src/scss/**/*.scss", styles);
-	gulp.watch("./src/js/**/*.js", scripts);
 	gulp.watch("./src/*.html", htmls);
-	gulp.watch("./*.html").on("change", browserSync.reload);
+	gulp.watch("./src/sass/**/*.scss", styles);
+	gulp.watch("./src/js/**/*.js", scripts);
+	gulp.watch("./*.html").on("change", browserSync.reload)
 }
 
-
 gulp.task("watch", watch);
-
-gulp.task("build", gulp.series(clean, gulp.parallel(htmls, styles, scripts, img, fonts)));
-
-gulp.task("dev", gulp.series("build", "watch"));
+gulp.task("prod", gulp.series(clean, gulp.parallel(htmls, styles, scripts, pictures, fonts)));
+gulp.task("dev", gulp.series("prod", "watch"));
