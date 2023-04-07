@@ -14,7 +14,7 @@
     "javascript",
     "front-end"
   ],
-  "author": "WEB group 2",
+  "author": "WEB group 1",
   "license": "ISC",
   "devDependencies": {
     "browser-sync": "^2.29.1",
